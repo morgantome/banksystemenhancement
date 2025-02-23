@@ -1,0 +1,18 @@
+class CheckingAccount extends BankAccount {
+    private static final double WITHDRAWAL_FEE = 2.0;
+
+    public CheckingAccount(String accountNumber) {
+        super(accountNumber, "Checking");
+    }
+
+    @Override
+    public void withdraw(double amount) {
+        double totalAmount = amount + WITHDRAWAL_FEE;
+        if (amount > 0 && totalAmount <= balance) {
+            balance -= totalAmount;
+            System.out.println("Withdrawn: " + amount + " (Fee: " + WITHDRAWAL_FEE + ")");
+        } else {
+            System.out.println("Insufficient funds or invalid amount.");
+        }
+    }
+}
