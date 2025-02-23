@@ -1,1 +1,4 @@
-
+interface AccountOperations {
+    void openAccount();
+    void closeAccount();
+}
