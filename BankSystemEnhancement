@@ -1,0 +1,56 @@
+import java.util.Scanner;
+
+public class BankSystemEnhancement {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        BankAccount account = null;
+        boolean validInput;
+
+        System.out.print("Enter account number: ");
+        String accountNumber = scanner.nextLine();
+
+        // Choose account type using do-while and switch
+        do {
+            System.out.print("Select account type (1: Savings, 2: Checking): ");
+            int choice = scanner.nextInt();
+            validInput = true;
+            switch (choice) {
+                case 1 -> account = new SavingsAccount(accountNumber);
+                case 2 -> account = new CheckingAccount(accountNumber);
+                default -> {
+                    System.out.println("Invalid choice. Please select 1 or 2.");
+                    validInput = false;
+                }
+            }
+        } while (!validInput);
+
+        account.openAccount();
+
+        // Simulate transactions using a while loop
+        boolean continueTransactions = true;
+        while (continueTransactions) {
+            System.out.println("1: Deposit, 2: Withdraw, 3: View Balance, 4: Exit");
+            System.out.print("Choose an action: ");
+            int action = scanner.nextInt();
+            switch (action) {
+                case 1 -> {
+                    System.out.print("Enter deposit amount: ");
+                    double depositAmount = scanner.nextDouble();
+                    account.deposit(depositAmount);
+                }
+                case 2 -> {
+                    System.out.print("Enter withdrawal amount: ");
+                    double withdrawAmount = scanner.nextDouble();
+                    account.withdraw(withdrawAmount);
+                }
+                case 3 -> account.viewBalance();
+                case 4 -> {
+                    continueTransactions = false;
+                    account.closeAccount();
+                }
+                default -> System.out.println("Invalid action. Please select 1-4.");
+            }
+        }
+        scanner.close();
+    }
+}
